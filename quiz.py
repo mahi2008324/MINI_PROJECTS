@@ -56,11 +56,30 @@ class Quiz:
         if ans == "2":
             self.score += 1
 
-        self.final_output()
+        next_q = input("Do you want to move to the next question? (Yes/No): ").lower()
+        if next_q == "yes":
+            self.questions_3()
+        else:
+            self.final_output()
+
+    # Third question
+    def questions_3(self):
+        print("\nQ: Who introduced Gravity?\n")
+        print("Options:")
+        print("1. Galielio")
+        print("2. Einstein")
+        print("3. Newton")
+        print("4. Rutherford")
+        ans = input("Enter your option (1-4): ")
+
+        if ans == "3":
+            self.score += 1
+        else:
+            self.final_output()
 
     # Final output
     def final_output(self):
-        print(f"\nYour final score is: {self.score}/2")
+        print("\nYour final score is: {}/3".format(self.score))
         print("Thanks for playing the quiz!")
 
 # Running the game
