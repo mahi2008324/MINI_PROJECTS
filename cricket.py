@@ -4,58 +4,84 @@ import time
 class Match:
     def team_a(self):
         score = 0
+        players = ["ROHITH SHARMA", "SURYA KUMAR YADAV"]
+        striker_index = 0  # Start with ROHITH SHARMA
 
-        while True:
-            bowler = random.randint(1, 6)    # Bowler's delivery
-            batsman = random.randint(1, 6)   # Batsman's shot
-
-            time.sleep(1)                    # Adding delay for realism
-
-            print("ROHITH SHARMA played: {}".format(batsman))
-
-            if batsman == 5:                 # If batsman scores 5, he is out
-                print("ROHITH SHARMA is OUT!")
-                break                       # End innings
-
-            else:
-                score += batsman             # Add runs to score
-                print("Score: {}".format(score))
-
-        print("Final score of ROHITH SHARMA is {}".format(score))
-        time.sleep(1)                       # Adding delay for realism
-        print("MI has set a target of {}".format(score))
-        return score                       # Return the total score of team A
-
-    def team_b(self, target):
-        score = 0
+        print("\n--- MI Innings ---\n")
 
         while True:
             bowler = random.randint(1, 6)
-            batsman = random.randint(1, 6)
+            batsman_run = random.randint(1, 6)
+            striker = players[striker_index]
 
-            time.sleep(1)                    # Adding delay for realism
+            time.sleep(2)
+            print("Ball is flying... {} played: {}".format(striker, batsman_run))
 
-            print("TRAVIS HEAD played: {}".format(batsman))
-
-            if batsman == 5:                # If batsman scores 5, he is out
-                print("TRAVIS HEAD is OUT!")
+            if batsman_run == 5:
+                print("{} is OUT!".format(striker))
                 break
 
-            else:
-                score += batsman
-                print("Score: {}".format(score))
+            score += batsman_run
 
-            if score > target:             # Check if target chased
-                print("TRAVIS HEAD has chased the target!")
+            # Rotate striker on odd runs
+            if batsman_run % 2 != 0:
+                striker_index = 1 - striker_index
+            if batsman_run == 6 or batsman_run == 4:
+                print("{} hit a boundary!".format(striker))
+
+            print("Current Score: {}\n".format(score))
+
+            if score==50:
+                print("Partnership of {} and {} is 50 runs.\n".format(players[0], players[1]))
+        print("----Score card of MI----")
+        print("\nFinal score of MI is {}\n".format(score))
+
+        print("MI has set a target of {}\n".format(score+1))
+        return score
+    time.sleep(5)
+
+    def team_b(self, target):
+        score = 0
+        players = ["TRAVIS HEAD", "HENRIK KLASSEN"]
+        striker_index = 0  # Start with TRAVIS HEAD
+
+        print("\n--- SRH Innings ---\n")
+
+        while True:
+            bowler = random.randint(1, 6)
+            batsman_run = random.randint(1, 6)
+
+            time.sleep(2)
+            print("Ball is in the air... {} played: {}".format(players[striker_index], batsman_run))
+
+            if batsman_run == 5:
+                print("BATSMAN is OUT!")
                 break
 
-        print("Final score of TRAVIS HEAD is {}".format(score))
-        return score                      # Return team B's score
-    time.sleep(1)                       # Adding delay for realism
+            score += batsman_run
+            # Rotate striker on odd runs
+            if batsman_run % 2 != 0:
+                striker_index = 1 - striker_index
+            if batsman_run == 6 or batsman_run == 4:
+                print("{} hit a boundary!".format(players[striker_index]))
+
+
+            print("Current Score: {}\n".format(score))
+
+            if score==50:
+                print("Partnership of {} and {} is 50 runs.\n".format(players[0], players[1]))
+
+            if score > target:
+                print("SRH has chased the target!\n")
+                break
+
+        print("Final score of SRH is {}\n".format(score))
+        return score
     
+    time.sleep(5)
 
     def winner(self, score_a, score_b):
-        # Decide winner based on scores
+        print("--- Match Result ---")
         if score_a > score_b:
             print("MI wins!")
         elif score_b > score_a:
@@ -65,6 +91,6 @@ class Match:
 
 # Run the match
 match = Match()
-score_a = match.team_a()      # Play team A innings and get score
-score_b = match.team_b(score_a)  # Play team B innings with target as team A's score
-match.winner(score_a, score_b)    # Decide and print winner
+score_a = match.team_a()
+score_b = match.team_b(score_a)
+match.winner(score_a, score_b)
